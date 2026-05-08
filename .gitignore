@@ -1,0 +1,13 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+*.translation
+
+# C# / Visual Studio / JetBrains ignores
+.vs/
+.idea/
+bin/
+obj/
+*.sln
+*.csproj
+*.userprefs

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="HeroForm" format=3 uid="uid://cvt6kkk0t6s1e"]
+
+[ext_resource type="Script" uid="uid://daxljl8oeqegg" path="res://src/forms/HeroForm.cs" id="1_1s2dg"]
+
+[resource]
+script = ExtResource("1_1s2dg")
+JumpVelocity = -400.0
+metadata/_custom_type_script = "uid://daxljl8oeqegg"

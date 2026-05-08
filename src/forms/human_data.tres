@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BaseForm" format=3 uid="uid://lncm0ifgi720"]
+
+[ext_resource type="Script" uid="uid://dl0ubky61ihqa" path="res://src/forms/BaseForm.cs" id="1_lrili"]
+
+[resource]
+script = ExtResource("1_lrili")
+metadata/_custom_type_script = "uid://dl0ubky61ihqa"
