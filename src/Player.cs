@@ -1,6 +1,6 @@
 using Godot;
 using System;
-using RiderProject.Forms;
+using ProjectRider.Forms;
 
 public partial class Player : CharacterBody2D
 {

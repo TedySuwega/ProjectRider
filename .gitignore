@@ -1,13 +1,50 @@
-# Godot 4+ specific ignores
+# =========================
+# Godot
+# =========================
 .godot/
-/android/
-*.translation
+.import/
 
-# C# / Visual Studio / JetBrains ignores
-.vs/
-.idea/
+# Mono / C#
+.mono/
 bin/
 obj/
-*.sln
-*.csproj
+
+# Android export build folder
+/android/
+
+# Localization generated files
+*.translation
+
+# =========================
+# IDE
+# =========================
+
+# Visual Studio
+.vs/
+
+# JetBrains Rider / IntelliJ
+.idea/
+
+# VS Code
+.vscode/
+
+# MonoDevelop / Rider user files
+*.user
 *.userprefs
+*.suo
+
+# =========================
+# OS files
+# =========================
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# =========================
+# Logs
+# =========================
+*.log

@@ -1,4 +1,4 @@
-namespace RiderProject.Forms;
+namespace ProjectRider.Forms;
 
 public interface ICombatant 
 {

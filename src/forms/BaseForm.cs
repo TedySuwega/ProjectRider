@@ -1,6 +1,6 @@
 using Godot;
 
-namespace RiderProject.Forms;
+namespace ProjectRider.Forms;
 
 [GlobalClass]
 public partial class BaseForm : Resource
