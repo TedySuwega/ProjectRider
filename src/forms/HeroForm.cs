@@ -1,6 +1,6 @@
 using Godot;
 
-namespace ProjectRider.Forms;
+namespace ProjectRider.Forms.HeroForm;
 
 [GlobalClass]
 public partial class HeroForm : BaseForm, ICombatant

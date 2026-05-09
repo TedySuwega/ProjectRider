@@ -59,6 +59,7 @@ JumpAnim = "jump_hero"
 WalkAnim = "walk_hero"
 HenshinAnim = "henshin"
 FormName = "Hero"
+WallJumpForce = Vector2(800, -600)
 metadata/_custom_type_script = "uid://daxljl8oeqegg"
 
 [sub_resource type="Resource" id="Resource_l71n6"]
@@ -1024,13 +1025,13 @@ region = Rect2(256, 0, 128, 128)
 atlas = ExtResource("32_j2b1d")
 region = Rect2(384, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cev0d"]
-atlas = ExtResource("33_cs1tg")
-region = Rect2(0, 0, 128, 128)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_4tr32"]
 atlas = ExtResource("33_cs1tg")
 region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cev0d"]
+atlas = ExtResource("33_cs1tg")
+region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_calqp"]
 atlas = ExtResource("33_cs1tg")
@@ -1866,10 +1867,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cev0d")
+"texture": SubResource("AtlasTexture_4tr32")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4tr32")
+"texture": SubResource("AtlasTexture_cev0d")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_calqp")
@@ -1896,4 +1897,5 @@ shape = SubResource("CapsuleShape2D_smehm")
 light_mask = 2
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_gl8cc")
-animation = &"slide_hero"
+animation = &"wall_slide_hero"
+frame_progress = 0.11064404

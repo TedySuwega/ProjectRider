@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using ProjectRider.Forms;
-using ProjectRider.Extensions; // Tambahkan ini agar GetAnimationDuration bisa dipanggil
+using ProjectRider.Extensions; 
 
 public partial class Player : CharacterBody2D
 {
@@ -15,12 +15,14 @@ public partial class Player : CharacterBody2D
 	private Vector2 _velocity;
 	private float _dashSpeedMultiplier = 1.0f;
 	private float _coyoteTimer = 0.0f; 
+	private float _wallJumpInputLockTimer = 0.0f;
 	
 	private bool _isAttacking = false;
 	private bool _isHenshin = false;
 	private bool _isDashing = false;
 	private bool _isSliding = false;
 	private bool _isCrawling = false;
+	private bool _isWallSliding = false;
 
 	public override void _Ready()
 	{
@@ -41,6 +43,7 @@ public partial class Player : CharacterBody2D
 
 		_velocity = Velocity;
 		ApplyGravity(delta);
+		HandleWallMovement(delta);
 
 		if (IsOnFloor()) _coyoteTimer = 0.15f;
 		else _coyoteTimer -= (float)delta;
@@ -49,7 +52,7 @@ public partial class Player : CharacterBody2D
 		{
 			HandleCrawl();   
 			HandleJump();    
-			HandleMovement();
+			HandleMovement(delta);
 			HandleSlide();
 			HandleAttack();
 			HandleHenshin();
@@ -67,7 +70,15 @@ public partial class Player : CharacterBody2D
 	private void ApplyGravity(double delta)
 	{
 		if (!IsOnFloor())
-			_velocity += GetGravity() * (float)delta;
+		{
+			// _velocity += GetGravity() * (float)delta;
+			float gravity = (float)GetGravity().Y;
+		
+			// Jika sedang jatuh, gravitasi lebih berat (Fast Fall)
+			if (_velocity.Y > 0) gravity *= 1.5f; 
+			
+			_velocity.Y += gravity * (float)delta;
+		}
 	}
 
 	private void HandleJump()
@@ -92,16 +103,27 @@ public partial class Player : CharacterBody2D
 		_isCrawling = Input.IsActionPressed("duck") && IsOnFloor() && CurrentForm == HumanData;
 	}
 
-	private void HandleMovement()
+	private void HandleMovement(double delta)
 	{
+		// --- TAMBAHKAN INI DI AWAL FUNGSI ---
+		// Kurangi timer setiap frame
+		_wallJumpInputLockTimer -= (float)delta;
+
 		float directionX = Input.GetAxis("move_left", "move_right");
 		float targetSpeed = CurrentForm.Speed;
+
+		// Jika input masih dikunci, paksa directionX jadi 0
+		if (_wallJumpInputLockTimer > 0)
+		{
+			directionX = 0;
+		}
+		// -------------------------------------
 
 		if (_isCrawling) targetSpeed = CurrentForm.CrawlSpeed;
 		// Pakai RunMultiplier dari BaseForm
 		else if (Input.IsActionPressed("run") && IsOnFloor()) targetSpeed *= CurrentForm.RunMultiplier;
 
-		if (Input.IsActionJustPressed("dash") && !_isDashing && CurrentForm == HeroData)
+		if (Input.IsActionJustPressed("dash") && !_isDashing && CurrentForm == HeroData && _velocity.X != 0)
 			PerformDash();
 
 		float finalSpeed = targetSpeed * _dashSpeedMultiplier;
@@ -173,6 +195,55 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
+	private void HandleWallMovement(double delta)
+	{
+		// Hanya Hero yang bisa Wall Jump/Slide
+		if (CurrentForm != HeroData) 
+		{
+			_isWallSliding = false;
+			return;
+		}
+
+		// Syarat Wall Slide: Di udara, menempel dinding, dan menekan arah ke dinding
+		bool isTouchingWall = IsOnWallOnly(); // Fungsi bawaan Godot
+		float wallDir = GetWallNormal().X; // Normal X: 1 (dinding di kiri), -1 (dinding di kanan)
+
+		if (isTouchingWall && !IsOnFloor() && _velocity.Y > 0)
+		{
+			_isWallSliding = true;
+
+			PlayerVisuals.FlipH = wallDir < 0;
+			// Efek gesekan: Kecepatan jatuh dibatasi
+			_velocity.Y = Mathf.Min(_velocity.Y, CurrentForm.WallSlideSpeed);
+			
+			// Handle Wall Jump
+			if (Input.IsActionJustPressed("jump"))
+			{
+				PerformWallJump(wallDir);
+			}
+		}
+		else
+		{
+			_isWallSliding = false;
+		}
+	}
+
+	private void PerformWallJump(float wallNormalX)
+	{
+		_isWallSliding = false;
+	
+		// Zig-Zag Force (Sesuaikan nilainya di BaseForm)
+		_velocity.X = wallNormalX * CurrentForm.WallJumpForce.X;
+		_velocity.Y = CurrentForm.WallJumpForce.Y;
+
+		// --- TAMBAHKAN INI: Kunci input selama 0.1 - 0.15 detik ---
+		// Waktu yang sangat singkat tapi cukup untuk mematikan input arah pemain
+		_wallJumpInputLockTimer = 0.15f; 
+		// ----------------------------------------------------------
+
+		PlayAnimationSafely(CurrentForm.WallJumpAnim);
+	}
+
 	private void UpdateVisuals()
 	{
 		if (PlayerVisuals == null || CurrentForm == null) return;
@@ -183,18 +254,28 @@ public partial class Player : CharacterBody2D
 		float speedMag = Mathf.Abs(_velocity.X);
 		bool isSkidding = (moveDir > 0 && _velocity.X < -20) || (moveDir < 0 && _velocity.X > 20);
 
-		if (moveDir != 0 && !isSkidding) 
-			PlayerVisuals.FlipH = moveDir < 0;
-
-		string targetAnim = (IsOnFloor(), _isCrawling, isSkidding, _isSliding) switch
+		if (_isWallSliding)
 		{
-			(_, _, _, true)          => CurrentForm.SlideAnim,
-			(false, _, _, _)         => CurrentForm.JumpAnim,
-			(true, true, _, _)       => CurrentForm.CrawlAnim,
-			(true, _, true, _)       => CurrentForm.WalkTurnAnim,
-			(true, _, _, _) when _isDashing => CurrentForm.DashAnim,
-			(true, _, _, _) when speedMag > CurrentForm.Speed * 1.2f => CurrentForm.RunAnim,
-			(true, _, _, _) when speedMag > 1.0f => CurrentForm.WalkAnim,
+			// Saat wall slide, paksa hadap menjauh dari normal dinding
+			// GetWallNormal().X bernilai 1 jika dinding di kiri, maka hadap kanan (FlipH = true)
+			PlayerVisuals.FlipH = GetWallNormal().X < 0;
+		}
+		else if (moveDir != 0 && !isSkidding) 
+		{
+			// Logika jalan biasa
+			PlayerVisuals.FlipH = moveDir < 0;
+		}
+
+		string targetAnim = (IsOnFloor(), _isCrawling, isSkidding, _isSliding, _isWallSliding) switch
+		{
+			(_, _, _, _, true)         => CurrentForm.WallSlideAnim,
+			(_, _, _, true, _)          => CurrentForm.SlideAnim,
+			(false, _, _, _, _)         => CurrentForm.JumpAnim,
+			(true, true, _, _, _)       => CurrentForm.CrawlAnim,
+			(true, _, true, _, _)       => CurrentForm.WalkTurnAnim,
+			(true, _, _, _, _) when _isDashing => CurrentForm.DashAnim,
+			(true, _, _, _, _) when speedMag > CurrentForm.Speed * 1.2f => CurrentForm.RunAnim,
+			(true, _, _, _, _) when speedMag > 1.0f => CurrentForm.WalkAnim,
 			_ => (PlayerVisuals.Animation == CurrentForm.RunAnim) ? CurrentForm.RunToIdleAnim : CurrentForm.IdleAnim
 		};
 
