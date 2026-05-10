@@ -268,9 +268,10 @@ public partial class Player : CharacterBody2D
 
 		string targetAnim = (IsOnFloor(), _isCrawling, isSkidding, _isSliding, _isWallSliding) switch
 		{
+			
 			(_, _, _, _, true)         => CurrentForm.WallSlideAnim,
 			(_, _, _, true, _)          => CurrentForm.SlideAnim,
-			(false, _, _, _, _)         => CurrentForm.JumpAnim,
+			(false, _, _, _, _) => _velocity.Y < 0 ? CurrentForm.JumpAnim : CurrentForm.FallAnim,
 			(true, true, _, _, _)       => CurrentForm.CrawlAnim,
 			(true, _, true, _, _)       => CurrentForm.WalkTurnAnim,
 			(true, _, _, _, _) when _isDashing => CurrentForm.DashAnim,

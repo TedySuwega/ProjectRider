@@ -4,26 +4,14 @@
 
 [resource]
 script = ExtResource("1_lrili")
-Speed = 100.0
-JumpVelocity = -200.0
-CrawlAnim = "slide_hero"
-CrawlSpeed = 40.0
-RunAnim = "run"
 DashAnim = "dash_hero"
 SlideAnim = "slide_hero"
 RunToIdleAnim = "idle"
 WalkTurnAnim = "walk_turn_hero"
 RunTurnAnim = "run_turn_hero"
-IdleAnim = "idle"
-JumpAnim = "jump"
-WalkAnim = "walk"
 HenshinAnim = "henshin"
 FormName = "Human"
 RunMultiplier = 1.6
-DashMultiplier = 2.5
 SlideMultiplier = 2.2
-WallSlideAnim = "wall_slide_hero"
-WallJumpAnim = "wall_jump_hero"
-WallSlideSpeed = 100.0
 WallJumpForce = Vector2(550, -500)
 metadata/_custom_type_script = "uid://dl0ubky61ihqa"

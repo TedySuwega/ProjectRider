@@ -23,7 +23,8 @@ public partial class BaseForm : Resource
 	[Export] public string JumpAnim = "jump";
 	[Export] public string WalkAnim = "walk";
 	[Export] public string HenshinAnim = "";
-	
+	[Export] public string FallAnim = "fall";
+
 	[Export] public string FormName; // Isi di Inspector masing-masing .tres
 
 	[ExportGroup("Movement Multipliers")]

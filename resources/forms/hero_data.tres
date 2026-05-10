@@ -16,6 +16,7 @@ IdleAnim = "idle_hero"
 JumpAnim = "jump_hero"
 WalkAnim = "walk_hero"
 HenshinAnim = "henshin"
+FallAnim = "fall_hero"
 FormName = "Hero"
 RunMultiplier = 1.6
 SlideMultiplier = 2.2

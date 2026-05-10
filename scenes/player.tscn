@@ -318,6 +318,30 @@ region = Rect2(2688, 0, 128, 128)
 atlas = ExtResource("4_d2wvv")
 region = Rect2(2816, 0, 128, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2t4xi"]
+atlas = ExtResource("4_fjrip")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ybkv"]
+atlas = ExtResource("4_fjrip")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0ija"]
+atlas = ExtResource("4_fjrip")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uc5i5"]
+atlas = ExtResource("19_l71n6")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl364"]
+atlas = ExtResource("19_l71n6")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64ww5"]
+atlas = ExtResource("19_l71n6")
+region = Rect2(256, 0, 128, 128)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_36p4m"]
 atlas = ExtResource("4_d2wvv")
 region = Rect2(1920, 0, 128, 128)
@@ -1244,6 +1268,34 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_2t4xi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ybkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0ija")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uc5i5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gl364")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64ww5")
+}],
+"loop": true,
+"name": &"fall_hero",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_36p4m")
 }, {
 "duration": 1.0,
@@ -1866,5 +1918,6 @@ shape = SubResource("CapsuleShape2D_smehm")
 light_mask = 2
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_gl8cc")
-animation = &"wall_slide_hero"
-frame_progress = 0.11064404
+animation = &"fall_hero"
+frame = 2
+frame_progress = 0.50867146
