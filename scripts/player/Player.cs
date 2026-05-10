@@ -16,7 +16,11 @@ public partial class Player : CharacterBody2D
 	private float _dashSpeedMultiplier = 1.0f;
 	private float _coyoteTimer = 0.0f; 
 	private float _wallJumpInputLockTimer = 0.0f;
-	
+
+	private int _comboCount = 0; // Pukulan ke berapa (0, 1, 2)
+	private float _comboTimer = 0.0f; // Sisa waktu untuk lanjut combo
+	private const float COMBO_WINDOW = 0.8f; // Toleransi waktu antar pencetan Z
+
 	private bool _isAttacking = false;
 	private bool _isHenshin = false;
 	private bool _isDashing = false;
@@ -168,14 +172,42 @@ public partial class Player : CharacterBody2D
 		_isSliding = false;
 	}
 
+	// private void HandleAttack()
+	// {
+	// 	if (Input.IsActionJustPressed("attack") && IsOnFloor() && CurrentForm is ICombatant combatForm)
+	// 	{
+	// 		_isAttacking = true;
+	// 		PlayerVisuals.Play(combatForm.AttackAnim);
+	// 		PlayerVisuals.Frame = 0;
+	// 	}
+	// }
 	private void HandleAttack()
 	{
-		if (Input.IsActionJustPressed("attack") && IsOnFloor() && CurrentForm is ICombatant combatForm)
+		// Kurangi timer combo setiap frame
+		if (_comboTimer > 0) _comboTimer -= (float)GetProcessDeltaTime();
+		else if (!_isAttacking) _comboCount = 0; // Reset combo jika waktu habis dan tidak sedang anim
+
+		if (Input.IsActionJustPressed("attack") && IsOnFloor() && CurrentForm is ICombatant combat)
 		{
-			_isAttacking = true;
-			PlayerVisuals.Play(combatForm.AttackAnim);
-			PlayerVisuals.Frame = 0;
+			// Jika sedang menyerang, kita "simpan" inputnya untuk combo berikutnya
+			if (_isAttacking) return;
+
+			StartAttack(combat);
 		}
+	}
+
+	private void StartAttack(ICombatant combat)
+	{
+		_isAttacking = true;
+
+		// Ambil animasi berdasarkan urutan combo
+		string animName = combat.ComboAnimations[_comboCount];
+		PlayerVisuals.Play(animName);
+		PlayerVisuals.Frame = 0;
+
+		// Siapkan urutan selanjutnya
+		_comboCount = (_comboCount + 1) % combat.ComboAnimations.Length;
+		_comboTimer = COMBO_WINDOW; // Beri waktu pemain untuk lanjut pencet
 	}
 
 	private void HandleHenshin()
@@ -292,10 +324,22 @@ public partial class Player : CharacterBody2D
 			return true;
 		}
 
+		// if (_isAttacking && CurrentForm is ICombatant combatForm)
+		// {
+		// 	if (PlayerVisuals.Frame >= PlayerVisuals.SpriteFrames.GetFrameCount(combatForm.AttackAnim) - 1)
+		// 		_isAttacking = false;
+		// 	return true;
+		// }
 		if (_isAttacking && CurrentForm is ICombatant combatForm)
 		{
-			if (PlayerVisuals.Frame >= PlayerVisuals.SpriteFrames.GetFrameCount(combatForm.AttackAnim) - 1)
+			// Cek apakah animasi yang sekarang diputar sudah selesai
+			if (PlayerVisuals.Frame >= PlayerVisuals.SpriteFrames.GetFrameCount(PlayerVisuals.Animation) - 1)
+			{
 				_isAttacking = false;
+
+				// Sedikit trick: Jika setelah animasi selesai timer masih ada, 
+				// jangan reset comboCount agar bisa lanjut ke pukulan berikutnya.
+			}
 			return true;
 		}
 

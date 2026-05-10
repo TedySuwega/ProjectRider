@@ -1,6 +1,7 @@
 namespace ProjectRider.Forms;
 
-public interface ICombatant 
+public interface ICombatant
 {
-	string AttackAnim { get; }
+	// string AttackAnim { get; }
+	string[] ComboAnimations { get; }
 }
