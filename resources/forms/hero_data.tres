@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="HeroForm" format=3 uid="uid://cvt6kkk0t6s1e"]
+
+[ext_resource type="Script" uid="uid://daxljl8oeqegg" path="res://scripts/forms/HeroForm.cs" id="1_1s2dg"]
+
+[resource]
+script = ExtResource("1_1s2dg")
+Speed = 150.0
+JumpVelocity = -500.0
+RunAnim = "run_hero"
+DashAnim = "dash_hero"
+SlideAnim = "slide_hero"
+RunToIdleAnim = "run_to_idle_hero"
+WalkTurnAnim = "walk_turn_hero"
+RunTurnAnim = "run_turn_hero"
+IdleAnim = "idle_hero"
+JumpAnim = "jump_hero"
+WalkAnim = "walk_hero"
+HenshinAnim = "henshin"
+FormName = "Hero"
+RunMultiplier = 1.6
+SlideMultiplier = 2.2
+WallJumpForce = Vector2(800, -600)
+metadata/_custom_type_script = "uid://daxljl8oeqegg"

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ProjectRider"
-run/main_scene="uid://dhx6em1qdmjcp"
+run/main_scene="res://scenes/sandbox.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 

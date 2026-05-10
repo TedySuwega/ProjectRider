@@ -1,70 +1,39 @@
 [gd_scene format=3 uid="uid://cgkx6d5mw02tu"]
 
-[ext_resource type="Texture2D" uid="uid://d1fjsimnvbxrk" path="res://asset/individual_sheets/male_hero_template-idle.png" id="1_dqkch"]
-[ext_resource type="Texture2D" uid="uid://blv4nk44t1tcc" path="res://asset/individual_sheets/male_hero_template-combo_1.png" id="1_smehm"]
-[ext_resource type="Script" uid="uid://cboa8sycf80y0" path="res://src/Player.cs" id="1_ur7pv"]
-[ext_resource type="Script" uid="uid://dl0ubky61ihqa" path="res://src/forms/BaseForm.cs" id="2_l71n6"]
-[ext_resource type="Texture2D" uid="uid://doggllw7ferhv" path="res://asset/individual_sheets/male_hero_template-jump.png" id="2_qlg0r"]
-[ext_resource type="Texture2D" uid="uid://b3qd1g7ygu8hf" path="res://asset/individual_sheets/male_hero_template-combo_1_end.png" id="2_ur7pv"]
-[ext_resource type="Script" uid="uid://daxljl8oeqegg" path="res://src/forms/HeroForm.cs" id="3_ke2ow"]
-[ext_resource type="Texture2D" uid="uid://cmt374x5yjvwo" path="res://asset/individual_sheets/male_hero_template-fall.png" id="3_tuyoq"]
-[ext_resource type="Texture2D" uid="uid://dswnl5qtoc32y" path="res://asset/hero/male_hero-death.png" id="4_d2wvv"]
-[ext_resource type="Texture2D" uid="uid://ddc67y0u8fhol" path="res://asset/individual_sheets/male_hero_template-fall_loop.png" id="4_fjrip"]
-[ext_resource type="Texture2D" uid="uid://cb0ocgjh2r7m4" path="res://asset/hero/male_hero-combo_1.png" id="4_i4ail"]
-[ext_resource type="Texture2D" uid="uid://r7ljdum1al8e" path="res://asset/hero/male_hero-combo_1_end.png" id="5_a38lo"]
-[ext_resource type="Texture2D" uid="uid://dffequo4yvuqj" path="res://asset/hero/male_hero-idle.png" id="5_y4r1p"]
-[ext_resource type="Texture2D" uid="uid://cbmcok1aahqtl" path="res://asset/hero/male_hero-combo_2.png" id="6_4ni07"]
-[ext_resource type="Texture2D" uid="uid://b0bg54yo7mkug" path="res://asset/hero/male_hero-combo_2_end.png" id="7_l71n6"]
-[ext_resource type="Texture2D" uid="uid://c12x07k0ybqkb" path="res://asset/individual_sheets/male_hero_template-run.png" id="7_y4r1p"]
-[ext_resource type="Texture2D" uid="uid://bmvouy6wiotg6" path="res://asset/individual_sheets/male_hero_template-walk.png" id="8_d2wvv"]
-[ext_resource type="Texture2D" uid="uid://5wjx30qinw7y" path="res://asset/hero/male_hero-combo_3.png" id="8_ke2ow"]
-[ext_resource type="Texture2D" uid="uid://c3mkght34ngvv" path="res://asset/hero/male_hero-combo_3_end.png" id="9_ujl30"]
-[ext_resource type="Texture2D" uid="uid://nk64r65no1cy" path="res://asset/hero/male_hero-dash.png" id="10_31cv2"]
-[ext_resource type="Texture2D" uid="uid://c38cuus46ov8g" path="res://asset/hero/male_hero-hurt.png" id="14_487ah"]
-[ext_resource type="Texture2D" uid="uid://dsi5j42hf8pwr" path="res://asset/hero/male_hero-jump.png" id="17_pf23h"]
-[ext_resource type="Texture2D" uid="uid://tu18rssb5bc0" path="res://asset/hero/male_hero-fall.png" id="18_4ni07"]
-[ext_resource type="Texture2D" uid="uid://c27aqx21p26db" path="res://asset/hero/male_hero-run.png" id="19_dt7fs"]
-[ext_resource type="Texture2D" uid="uid://dqdecq3w2v8gx" path="res://asset/hero/male_hero-fall_loop.png" id="19_l71n6"]
-[ext_resource type="Texture2D" uid="uid://cxpbp3ik1fa1k" path="res://asset/hero/male_hero-walk.png" id="21_wqfne"]
-[ext_resource type="Texture2D" uid="uid://bsivion8b2qq1" path="res://asset/hero/male_hero-ledge_climb.png" id="23_md1ol"]
-[ext_resource type="Texture2D" uid="uid://p8yv3y4b21gn" path="res://asset/hero/male_hero-ledge_hang.png" id="24_bj30b"]
-[ext_resource type="Texture2D" uid="uid://bymyege1us1tw" path="res://asset/hero/male_hero-run_to_idle.png" id="27_jc3p3"]
-[ext_resource type="Texture2D" uid="uid://dgnjk2gqh6li5" path="res://asset/hero/male_hero-run_turn.png" id="28_hax0n"]
-[ext_resource type="Texture2D" uid="uid://k4ss2xpwrawb" path="res://asset/hero/male_hero-slide.png" id="29_md1ol"]
-[ext_resource type="Texture2D" uid="uid://bekc31qo1qvjh" path="res://asset/hero/male_hero-walk_turn.png" id="31_t4otl"]
-[ext_resource type="Texture2D" uid="uid://dl6f6n4lgfo0q" path="res://asset/hero/male_hero-wall_jump.png" id="32_j2b1d"]
-[ext_resource type="Texture2D" uid="uid://cjjpk5rrep5np" path="res://asset/hero/male_hero-wall_slide.png" id="33_cs1tg"]
-
-[sub_resource type="Resource" id="Resource_ujl30"]
-script = ExtResource("2_l71n6")
-DashAnim = "dash_hero"
-SlideAnim = "slide_hero"
-RunToIdleAnim = "idle"
-HenshinAnim = "henshin"
-FormName = "Human"
-metadata/_custom_type_script = "uid://dl0ubky61ihqa"
-
-[sub_resource type="Resource" id="Resource_31cv2"]
-script = ExtResource("3_ke2ow")
-Speed = 150.0
-JumpVelocity = -500.0
-RunAnim = "run_hero"
-DashAnim = "dash_hero"
-SlideAnim = "slide_hero"
-RunToIdleAnim = "run_to_idle_hero"
-WalkTurnAnim = "walk_turn_hero"
-RunTurnAnim = "run_turn_hero"
-IdleAnim = "idle_hero"
-JumpAnim = "jump_hero"
-WalkAnim = "walk_hero"
-HenshinAnim = "henshin"
-FormName = "Hero"
-WallJumpForce = Vector2(800, -600)
-metadata/_custom_type_script = "uid://daxljl8oeqegg"
-
-[sub_resource type="Resource" id="Resource_l71n6"]
-script = ExtResource("2_l71n6")
-metadata/_custom_type_script = "uid://dl0ubky61ihqa"
+[ext_resource type="Texture2D" uid="uid://d1fjsimnvbxrk" path="res://assets/individual_sheets/male_hero_template-idle.png" id="1_dqkch"]
+[ext_resource type="Texture2D" uid="uid://blv4nk44t1tcc" path="res://assets/individual_sheets/male_hero_template-combo_1.png" id="1_smehm"]
+[ext_resource type="Script" uid="uid://cboa8sycf80y0" path="res://scripts/player/Player.cs" id="1_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://doggllw7ferhv" path="res://assets/individual_sheets/male_hero_template-jump.png" id="2_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://b3qd1g7ygu8hf" path="res://assets/individual_sheets/male_hero_template-combo_1_end.png" id="2_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://cmt374x5yjvwo" path="res://assets/individual_sheets/male_hero_template-fall.png" id="3_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://dswnl5qtoc32y" path="res://assets/hero/male_hero-death.png" id="4_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://ddc67y0u8fhol" path="res://assets/individual_sheets/male_hero_template-fall_loop.png" id="4_fjrip"]
+[ext_resource type="Texture2D" uid="uid://cb0ocgjh2r7m4" path="res://assets/hero/male_hero-combo_1.png" id="4_i4ail"]
+[ext_resource type="Texture2D" uid="uid://r7ljdum1al8e" path="res://assets/hero/male_hero-combo_1_end.png" id="5_a38lo"]
+[ext_resource type="Texture2D" uid="uid://dffequo4yvuqj" path="res://assets/hero/male_hero-idle.png" id="5_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://cbmcok1aahqtl" path="res://assets/hero/male_hero-combo_2.png" id="6_4ni07"]
+[ext_resource type="Texture2D" uid="uid://b0bg54yo7mkug" path="res://assets/hero/male_hero-combo_2_end.png" id="7_l71n6"]
+[ext_resource type="Texture2D" uid="uid://c12x07k0ybqkb" path="res://assets/individual_sheets/male_hero_template-run.png" id="7_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://bmvouy6wiotg6" path="res://assets/individual_sheets/male_hero_template-walk.png" id="8_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://5wjx30qinw7y" path="res://assets/hero/male_hero-combo_3.png" id="8_ke2ow"]
+[ext_resource type="Texture2D" uid="uid://c3mkght34ngvv" path="res://assets/hero/male_hero-combo_3_end.png" id="9_ujl30"]
+[ext_resource type="Texture2D" uid="uid://nk64r65no1cy" path="res://assets/hero/male_hero-dash.png" id="10_31cv2"]
+[ext_resource type="Texture2D" uid="uid://c38cuus46ov8g" path="res://assets/hero/male_hero-hurt.png" id="14_487ah"]
+[ext_resource type="Texture2D" uid="uid://dsi5j42hf8pwr" path="res://assets/hero/male_hero-jump.png" id="17_pf23h"]
+[ext_resource type="Texture2D" uid="uid://tu18rssb5bc0" path="res://assets/hero/male_hero-fall.png" id="18_4ni07"]
+[ext_resource type="Texture2D" uid="uid://c27aqx21p26db" path="res://assets/hero/male_hero-run.png" id="19_dt7fs"]
+[ext_resource type="Texture2D" uid="uid://dqdecq3w2v8gx" path="res://assets/hero/male_hero-fall_loop.png" id="19_l71n6"]
+[ext_resource type="Texture2D" uid="uid://cxpbp3ik1fa1k" path="res://assets/hero/male_hero-walk.png" id="21_wqfne"]
+[ext_resource type="Texture2D" uid="uid://bsivion8b2qq1" path="res://assets/hero/male_hero-ledge_climb.png" id="23_md1ol"]
+[ext_resource type="Texture2D" uid="uid://p8yv3y4b21gn" path="res://assets/hero/male_hero-ledge_hang.png" id="24_bj30b"]
+[ext_resource type="Texture2D" uid="uid://bymyege1us1tw" path="res://assets/hero/male_hero-run_to_idle.png" id="27_jc3p3"]
+[ext_resource type="Texture2D" uid="uid://dgnjk2gqh6li5" path="res://assets/hero/male_hero-run_turn.png" id="28_hax0n"]
+[ext_resource type="Texture2D" uid="uid://k4ss2xpwrawb" path="res://assets/hero/male_hero-slide.png" id="29_md1ol"]
+[ext_resource type="Texture2D" uid="uid://bekc31qo1qvjh" path="res://assets/hero/male_hero-walk_turn.png" id="31_t4otl"]
+[ext_resource type="Texture2D" uid="uid://dl6f6n4lgfo0q" path="res://assets/hero/male_hero-wall_jump.png" id="32_j2b1d"]
+[ext_resource type="Texture2D" uid="uid://cjjpk5rrep5np" path="res://assets/hero/male_hero-wall_slide.png" id="33_cs1tg"]
+[ext_resource type="Resource" uid="uid://lncm0ifgi720" path="res://resources/forms/human_data.tres" id="34_kr8m2"]
+[ext_resource type="Resource" uid="uid://cvt6kkk0t6s1e" path="res://resources/forms/hero_data.tres" id="35_np4wq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_smehm"]
 radius = 6.0
@@ -1886,9 +1855,9 @@ animations = [{
 [node name="Player" type="CharacterBody2D" unique_id=730008208 node_paths=PackedStringArray("PlayerVisuals")]
 script = ExtResource("1_ur7pv")
 PlayerVisuals = NodePath("AnimatedSprite2D")
-HumanData = SubResource("Resource_ujl30")
-HeroData = SubResource("Resource_31cv2")
-CurrentForm = SubResource("Resource_l71n6")
+HumanData = ExtResource("34_kr8m2")
+HeroData = ExtResource("35_np4wq")
+CurrentForm = ExtResource("34_kr8m2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1479565281]
 shape = SubResource("CapsuleShape2D_smehm")
