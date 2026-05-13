@@ -6,6 +6,8 @@ public abstract partial class PlayerState : RefCounted
 {
 	protected Player _player;
 
+	public virtual bool LocksVisuals => false;
+
 	public PlayerState(Player player)
 	{
 		_player = player;

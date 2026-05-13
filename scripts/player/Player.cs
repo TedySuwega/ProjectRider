@@ -24,8 +24,6 @@ public partial class Player : CharacterBody2D
 	private float _comboTimer = 0.0f; // Sisa waktu untuk lanjut combo
 	private const float COMBO_WINDOW = 0.8f; // Toleransi waktu antar pencetan Z
 
-	private bool _isAttacking = false;
-	private bool _isHenshin = false;
 	private bool _isDashing = false;
 	private bool _isSliding = false;
 	private bool _isCrawling = false;
@@ -79,18 +77,7 @@ public partial class Player : CharacterBody2D
 
 		_velocity = Velocity;
 		TickCoyote(delta);
-
-		if (_isAttacking || _isHenshin)
-		{
-			ApplyGravity(delta);
-			HandleWallMovement(delta);
-			_velocity.X = Mathf.MoveToward(_velocity.X, 0, CurrentForm.Speed);
-			Velocity = _velocity;
-			MoveAndSlide();
-			_velocity = Velocity;
-			UpdateVisuals();
-			return;
-		}
+		TickComboTimer(delta);
 
 		_currentState?.Update(delta);
 		Velocity = _velocity;
@@ -104,6 +91,17 @@ public partial class Player : CharacterBody2D
 	{
 		if (IsOnFloor()) _coyoteTimer = 0.15f;
 		else _coyoteTimer -= (float)delta;
+	}
+
+	private void TickComboTimer(double delta)
+	{
+		if (_currentState is AttackState)
+			return;
+
+		if (_comboTimer > 0)
+			_comboTimer -= (float)delta;
+		else
+			_comboCount = 0;
 	}
 
 	public void ApplyGravity(double delta)
@@ -190,37 +188,22 @@ public partial class Player : CharacterBody2D
 		_isSliding = false;
 	}
 
-	// private void HandleAttack()
-	// {
-	// 	if (Input.IsActionJustPressed("attack") && IsOnFloor() && CurrentForm is ICombatant combatForm)
-	// 	{
-	// 		_isAttacking = true;
-	// 		PlayerVisuals.Play(combatForm.AttackAnim);
-	// 		PlayerVisuals.Frame = 0;
-	// 	}
-	// }
 	public void HandleAttack()
 	{
-		// Kurangi timer combo setiap frame
-		if (_comboTimer > 0) _comboTimer -= (float)GetProcessDeltaTime();
-		else if (!_isAttacking) _comboCount = 0; // Reset combo jika waktu habis dan tidak sedang anim
-
-		if (Input.IsActionJustPressed("attack") && IsOnFloor() && CurrentForm is ICombatant combat)
+		if (Input.IsActionJustPressed("attack") && IsOnFloor() && CurrentForm is ICombatant)
 		{
-			// Jika sedang menyerang, kita "simpan" inputnya untuk combo berikutnya
-			if (_isAttacking) return;
-
-			StartAttack(combat);
+			ChangeState(new AttackState(this));
 		}
 	}
 
-	private void StartAttack(ICombatant combat)
+	public void ExecuteComboStrike()
 	{
-		_isAttacking = true;
+		if (CurrentForm is not ICombatant combat || combat.ComboAnimations.Length == 0)
+			return;
 
 		// Ambil animasi berdasarkan urutan combo
 		string animName = combat.ComboAnimations[_comboCount];
-		PlayerVisuals.Play(animName);
+		PlayAnimationSafely(animName);
 		PlayerVisuals.Frame = 0;
 
 		// Siapkan urutan selanjutnya
@@ -230,18 +213,9 @@ public partial class Player : CharacterBody2D
 
 	public void HandleHenshin()
 	{
-		if (Input.IsActionJustPressed("henshin") && !_isHenshin)
+		if (Input.IsActionJustPressed("henshin"))
 		{
-			_isHenshin = true;
-			_velocity.X = 0;
-			CurrentForm = (CurrentForm == HumanData) ? HeroData : HumanData;
-
-			if (!string.IsNullOrEmpty(CurrentForm.HenshinAnim))
-			{
-				PlayerVisuals.Play(CurrentForm.HenshinAnim);
-				PlayerVisuals.Frame = 0;
-			}
-			else _isHenshin = false;
+			ChangeState(new HenshinState(this));
 		}
 	}
 
@@ -297,8 +271,7 @@ public partial class Player : CharacterBody2D
 	private void UpdateVisuals()
 	{
 		if (PlayerVisuals == null || CurrentForm == null) return;
-
-		if (HandleActionLocks()) return;
+		if (_currentState?.LocksVisuals == true) return;
 
 		float moveDir = Input.GetAxis("move_left", "move_right");
 		float speedMag = Mathf.Abs(_velocity.X);
@@ -331,37 +304,6 @@ public partial class Player : CharacterBody2D
 		};
 
 		PlayAnimationSafely(targetAnim);
-	}
-
-	private bool HandleActionLocks()
-	{
-		if (_isHenshin && !string.IsNullOrEmpty(CurrentForm.HenshinAnim))
-		{
-			if (PlayerVisuals.Frame >= PlayerVisuals.SpriteFrames.GetFrameCount(CurrentForm.HenshinAnim) - 1)
-				_isHenshin = false;
-			return true;
-		}
-
-		// if (_isAttacking && CurrentForm is ICombatant combatForm)
-		// {
-		// 	if (PlayerVisuals.Frame >= PlayerVisuals.SpriteFrames.GetFrameCount(combatForm.AttackAnim) - 1)
-		// 		_isAttacking = false;
-		// 	return true;
-		// }
-		if (_isAttacking && CurrentForm is ICombatant combatForm)
-		{
-			// Cek apakah animasi yang sekarang diputar sudah selesai
-			if (PlayerVisuals.Frame >= PlayerVisuals.SpriteFrames.GetFrameCount(PlayerVisuals.Animation) - 1)
-			{
-				_isAttacking = false;
-
-				// Sedikit trick: Jika setelah animasi selesai timer masih ada, 
-				// jangan reset comboCount agar bisa lanjut ke pukulan berikutnya.
-			}
-			return true;
-		}
-
-		return false;
 	}
 
 	public void PlayAnimationSafely(string animName)
