@@ -1,7 +1,8 @@
 using Godot;
 using System;
 using ProjectRider.Forms;
-using ProjectRider.Extensions; 
+using ProjectRider.Extensions;
+using ProjectRider.States;
 
 public partial class Player : CharacterBody2D
 {
@@ -16,6 +17,8 @@ public partial class Player : CharacterBody2D
 	private float _dashSpeedMultiplier = 1.0f;
 	private float _coyoteTimer = 0.0f; 
 	private float _wallJumpInputLockTimer = 0.0f;
+
+	private PlayerState _currentState;
 
 	private int _comboCount = 0; // Pukulan ke berapa (0, 1, 2)
 	private float _comboTimer = 0.0f; // Sisa waktu untuk lanjut combo
@@ -39,6 +42,35 @@ public partial class Player : CharacterBody2D
 		{
 			GD.PrintErr("Error: HumanData belum ditarik ke Inspector!");
 		}
+
+		ChangeState(new IdleState(this));
+	}
+
+	public Vector2 WorkingVelocity
+	{
+		get => _velocity;
+		set => _velocity = value;
+	}
+
+	public void ChangeState(PlayerState newState)
+	{
+		_currentState?.Exit();
+		_currentState = newState;
+		_currentState?.Enter();
+	}
+
+	public bool CanCoyoteJump() => IsOnFloor() || _coyoteTimer > 0;
+
+	public void ApplyJumpFromState()
+	{
+		if (_isSliding) _isSliding = false;
+		_coyoteTimer = 0;
+	}
+
+	public void ApplyJumpCut()
+	{
+		if (_velocity.Y < -50)
+			_velocity.Y *= 0.5f;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -46,32 +78,35 @@ public partial class Player : CharacterBody2D
 		if (CurrentForm == null) return;
 
 		_velocity = Velocity;
-		ApplyGravity(delta);
-		HandleWallMovement(delta);
+		TickCoyote(delta);
 
-		if (IsOnFloor()) _coyoteTimer = 0.15f;
-		else _coyoteTimer -= (float)delta;
-
-		if (!_isAttacking && !_isHenshin)
+		if (_isAttacking || _isHenshin)
 		{
-			HandleCrawl();   
-			HandleJump();    
-			HandleMovement(delta);
-			HandleSlide();
-			HandleAttack();
-			HandleHenshin();
-		}
-		else
-		{
+			ApplyGravity(delta);
+			HandleWallMovement(delta);
 			_velocity.X = Mathf.MoveToward(_velocity.X, 0, CurrentForm.Speed);
+			Velocity = _velocity;
+			MoveAndSlide();
+			_velocity = Velocity;
+			UpdateVisuals();
+			return;
 		}
 
+		_currentState?.Update(delta);
 		Velocity = _velocity;
 		MoveAndSlide();
+		_velocity = Velocity;
+		_currentState?.PhysicsPostMove(delta);
 		UpdateVisuals();
 	}
 
-	private void ApplyGravity(double delta)
+	private void TickCoyote(double delta)
+	{
+		if (IsOnFloor()) _coyoteTimer = 0.15f;
+		else _coyoteTimer -= (float)delta;
+	}
+
+	public void ApplyGravity(double delta)
 	{
 		if (!IsOnFloor())
 		{
@@ -85,29 +120,12 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	private void HandleJump()
-	{
-		if (Input.IsActionJustPressed("jump") && _coyoteTimer > 0)
-		{
-			_velocity.Y = CurrentForm.JumpVelocity;
-			_coyoteTimer = 0;
-
-			// State Interrupt: Jika sedang slide lalu lompat, slide berhenti
-			if (_isSliding) _isSliding = false;
-		}
-
-		if (Input.IsActionJustReleased("jump") && _velocity.Y < -50)
-		{
-			_velocity.Y *= 0.5f; 
-		}
-	}
-
-	private void HandleCrawl()
+	public void HandleCrawl()
 	{
 		_isCrawling = Input.IsActionPressed("duck") && IsOnFloor() && CurrentForm == HumanData;
 	}
 
-	private void HandleMovement(double delta)
+	public void ApplyHorizontalLocomotion(double delta)
 	{
 		// --- TAMBAHKAN INI DI AWAL FUNGSI ---
 		// Kurangi timer setiap frame
@@ -149,7 +167,7 @@ public partial class Player : CharacterBody2D
 		_isDashing = false;
 	}
 
-	private void HandleSlide()
+	public void HandleSlide()
 	{
 		if (Input.IsActionJustPressed("slide") && IsOnFloor() && !_isSliding)
 		{
@@ -181,7 +199,7 @@ public partial class Player : CharacterBody2D
 	// 		PlayerVisuals.Frame = 0;
 	// 	}
 	// }
-	private void HandleAttack()
+	public void HandleAttack()
 	{
 		// Kurangi timer combo setiap frame
 		if (_comboTimer > 0) _comboTimer -= (float)GetProcessDeltaTime();
@@ -210,7 +228,7 @@ public partial class Player : CharacterBody2D
 		_comboTimer = COMBO_WINDOW; // Beri waktu pemain untuk lanjut pencet
 	}
 
-	private void HandleHenshin()
+	public void HandleHenshin()
 	{
 		if (Input.IsActionJustPressed("henshin") && !_isHenshin)
 		{
@@ -227,7 +245,7 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	private void HandleWallMovement(double delta)
+	public void HandleWallMovement(double delta)
 	{
 		// Hanya Hero yang bisa Wall Jump/Slide
 		if (CurrentForm != HeroData) 
@@ -346,7 +364,7 @@ public partial class Player : CharacterBody2D
 		return false;
 	}
 
-	private void PlayAnimationSafely(string animName)
+	public void PlayAnimationSafely(string animName)
 	{
 		if (!string.IsNullOrEmpty(animName) && PlayerVisuals.SpriteFrames.HasAnimation(animName))
 		{

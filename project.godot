@@ -12,7 +12,7 @@ config_version=5
 
 config/name="ProjectRider"
 run/main_scene="res://scenes/sandbox.tscn"
-config/features=PackedStringArray("4.6", "GL Compatibility")
+config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [dotnet]
