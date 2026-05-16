@@ -6,27 +6,35 @@ namespace ProjectRider.States;
 public partial class HenshinState : PlayerState
 {
 	private string _henshinAnimation;
+	private BaseForm _targetForm; // Tambahkan variabel penampung
 
 	public override bool LocksVisuals => true;
 
-	public HenshinState(Player player) : base(player) { }
+	// MODIFIKASI CONSTRUCTOR: Menerima parameter targetForm
+	public HenshinState(Player player, BaseForm targetForm) : base(player)
+	{
+		_targetForm = targetForm;
+	}
 
 	public override void Enter()
 	{
-		BaseForm nextForm = _player.CurrentForm == _player.HumanData ? _player.HeroData : _player.HumanData;
-		if (nextForm == null)
+		// Validasi jika data resource kosong di Inspector
+		if (_targetForm == null)
 		{
 			_player.ChangeState(GetNextState());
 			return;
 		}
 
-		_player.CurrentForm = nextForm;
+		// Terapkan form baru ke player
+		_player.CurrentForm = _targetForm;
 		_henshinAnimation = _player.CurrentForm.HenshinAnim;
 
 		var velocity = _player.WorkingVelocity;
 		velocity.X = 0;
 		_player.WorkingVelocity = velocity;
 
+		// Jika animasi henshin kosong (misal untuk placeholder Hero 2 & 3), 
+		// langsung pindah ke state berikutnya tanpa nunggu animasi selesai
 		if (string.IsNullOrEmpty(_henshinAnimation))
 		{
 			_player.ChangeState(GetNextState());

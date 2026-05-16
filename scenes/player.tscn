@@ -9,7 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://dswnl5qtoc32y" path="res://assets/hero/male_hero-death.png" id="4_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://ddc67y0u8fhol" path="res://assets/individual_sheets/male_hero_template-fall_loop.png" id="4_fjrip"]
 [ext_resource type="Texture2D" uid="uid://cb0ocgjh2r7m4" path="res://assets/hero/male_hero-combo_1.png" id="4_i4ail"]
+[ext_resource type="Resource" uid="uid://bnfjryf6sxcja" path="res://resources/forms/hero_data2.tres" id="4_t4otl"]
 [ext_resource type="Texture2D" uid="uid://r7ljdum1al8e" path="res://assets/hero/male_hero-combo_1_end.png" id="5_a38lo"]
+[ext_resource type="Resource" uid="uid://dysupi6uced0s" path="res://resources/forms/hero_data3.tres" id="5_j2b1d"]
 [ext_resource type="Texture2D" uid="uid://dffequo4yvuqj" path="res://assets/hero/male_hero-idle.png" id="5_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://cbmcok1aahqtl" path="res://assets/hero/male_hero-combo_2.png" id="6_4ni07"]
 [ext_resource type="Texture2D" uid="uid://b0bg54yo7mkug" path="res://assets/hero/male_hero-combo_2_end.png" id="7_l71n6"]
@@ -22,7 +24,9 @@
 [ext_resource type="Texture2D" uid="uid://dsi5j42hf8pwr" path="res://assets/hero/male_hero-jump.png" id="17_pf23h"]
 [ext_resource type="Texture2D" uid="uid://tu18rssb5bc0" path="res://assets/hero/male_hero-fall.png" id="18_4ni07"]
 [ext_resource type="Texture2D" uid="uid://c27aqx21p26db" path="res://assets/hero/male_hero-run.png" id="19_dt7fs"]
+[ext_resource type="Texture2D" uid="uid://bj1ygfseangj2" path="res://assets/male_hero_2-idle.png" id="19_jc3p3"]
 [ext_resource type="Texture2D" uid="uid://dqdecq3w2v8gx" path="res://assets/hero/male_hero-fall_loop.png" id="19_l71n6"]
+[ext_resource type="Texture2D" uid="uid://bkw0hbbeqxh2l" path="res://assets/male_hero_3-idle.png" id="20_hax0n"]
 [ext_resource type="Texture2D" uid="uid://cxpbp3ik1fa1k" path="res://assets/hero/male_hero-walk.png" id="21_wqfne"]
 [ext_resource type="Texture2D" uid="uid://bsivion8b2qq1" path="res://assets/hero/male_hero-ledge_climb.png" id="23_md1ol"]
 [ext_resource type="Texture2D" uid="uid://p8yv3y4b21gn" path="res://assets/hero/male_hero-ledge_hang.png" id="24_bj30b"]
@@ -712,6 +716,86 @@ region = Rect2(1024, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2w11d"]
 atlas = ExtResource("5_y4r1p")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufyg4"]
+atlas = ExtResource("19_jc3p3")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4tee"]
+atlas = ExtResource("19_jc3p3")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwxpc"]
+atlas = ExtResource("19_jc3p3")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afifw"]
+atlas = ExtResource("19_jc3p3")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckjw1"]
+atlas = ExtResource("19_jc3p3")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35qov"]
+atlas = ExtResource("19_jc3p3")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8vec"]
+atlas = ExtResource("19_jc3p3")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1qry"]
+atlas = ExtResource("19_jc3p3")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqagv"]
+atlas = ExtResource("19_jc3p3")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h13tf"]
+atlas = ExtResource("19_jc3p3")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4x7xe"]
+atlas = ExtResource("20_hax0n")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwf66"]
+atlas = ExtResource("20_hax0n")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5rjw"]
+atlas = ExtResource("20_hax0n")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqn4d"]
+atlas = ExtResource("20_hax0n")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5inco"]
+atlas = ExtResource("20_hax0n")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_up63a"]
+atlas = ExtResource("20_hax0n")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5palb"]
+atlas = ExtResource("20_hax0n")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqdhl"]
+atlas = ExtResource("20_hax0n")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8c3o"]
+atlas = ExtResource("20_hax0n")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kr3rc"]
+atlas = ExtResource("20_hax0n")
 region = Rect2(1152, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
@@ -1750,6 +1834,76 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ufyg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4tee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nwxpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afifw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckjw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35qov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8vec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1qry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oqagv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h13tf")
+}],
+"loop": true,
+"name": &"idle_hero_form2",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4x7xe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwf66")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5rjw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqn4d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5inco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_up63a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5palb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqdhl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8c3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kr3rc")
+}],
+"loop": true,
+"name": &"idle_hero_form3",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_4r5pv")
 }, {
 "duration": 1.0,
@@ -2169,6 +2323,8 @@ script = ExtResource("1_ur7pv")
 PlayerVisuals = NodePath("AnimatedSprite2D")
 HumanData = ExtResource("34_kr8m2")
 HeroData = ExtResource("35_np4wq")
+HeroData2 = ExtResource("4_t4otl")
+HeroData3 = ExtResource("5_j2b1d")
 CurrentForm = ExtResource("34_kr8m2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1479565281]
@@ -2176,8 +2332,7 @@ shape = SubResource("CapsuleShape2D_smehm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1911920487]
 light_mask = 2
-position = Vector2(0, -1)
+position = Vector2(0, -2)
 sprite_frames = SubResource("SpriteFrames_gl8cc")
-animation = &"attack_combo_3"
-frame = 2
-frame_progress = 0.87825865
+animation = &"idle"
+frame_progress = 0.25410706

@@ -3,6 +3,7 @@ using System;
 using ProjectRider.Forms;
 using ProjectRider.Extensions;
 using ProjectRider.States;
+using ProjectRider.Forms.HeroForm;
 
 public partial class Player : CharacterBody2D
 {
@@ -11,6 +12,8 @@ public partial class Player : CharacterBody2D
 	[ExportGroup("Form Resources")]
 	[Export] public BaseForm HumanData;
 	[Export] public BaseForm HeroData;
+	[Export] public BaseForm HeroData2; // TAMBAHKAN INI (Hero 2 - Biru)
+	[Export] public BaseForm HeroData3; // TAMBAHKAN INI (Hero 3 - Hijau)
 	[Export] public BaseForm CurrentForm;
 
 	private Vector2 _velocity;
@@ -28,6 +31,7 @@ public partial class Player : CharacterBody2D
 	private bool _isSliding = false;
 	private bool _isCrawling = false;
 	private bool _isWallSliding = false;
+	private BaseForm _nextTargetForm;
 
 	public override void _Ready()
 	{
@@ -78,6 +82,7 @@ public partial class Player : CharacterBody2D
 		_velocity = Velocity;
 		TickCoyote(delta);
 		TickComboTimer(delta);
+		HandleFormSwitchInput();
 
 		_currentState?.Update(delta);
 		Velocity = _velocity;
@@ -143,7 +148,7 @@ public partial class Player : CharacterBody2D
 		// Pakai RunMultiplier dari BaseForm
 		else if (Input.IsActionPressed("run") && IsOnFloor()) targetSpeed *= CurrentForm.RunMultiplier;
 
-		if (Input.IsActionJustPressed("dash") && !_isDashing && CurrentForm == HeroData && _velocity.X != 0)
+		if (Input.IsActionJustPressed("dash") && !_isDashing && CurrentForm is HeroForm && _velocity.X != 0)
 			PerformDash();
 
 		float finalSpeed = targetSpeed * _dashSpeedMultiplier;
@@ -211,18 +216,58 @@ public partial class Player : CharacterBody2D
 		_comboTimer = COMBO_WINDOW; // Beri waktu pemain untuk lanjut pencet
 	}
 
-	public void HandleHenshin()
+	// public void HandleHenshin()
+	// {
+	// 	if (Input.IsActionJustPressed("henshin"))
+	// 	{
+	// 		ChangeState(new HenshinState(this, _nextTargetForm));
+	// 	}
+	// }
+	
+	// Fungsi untuk mendeteksi input ganti wujud secara sederhana
+    public void HandleFormSwitchInput()
+    {
+        BaseForm targetForm = null;
+
+        if (Input.IsActionJustPressed("key_1")) targetForm = HumanData;
+        if (Input.IsActionJustPressed("key_2")) targetForm = HeroData;  // Hero 1
+        if (Input.IsActionJustPressed("key_3")) targetForm = HeroData2; // Hero 2
+        if (Input.IsActionJustPressed("key_4")) targetForm = HeroData3; // Hero 3
+
+        // Pastikan target form tidak null, tidak sama dengan form sekarang, 
+        // dan tidak sedang dalam keadaan HenshinState
+        if (targetForm != null && targetForm != CurrentForm && _currentState is not HenshinState)
+        {
+            // Kita simpan dulu target form-nya ke dalam variabel sementara (atau passing langsung ke State)
+            _nextTargetForm = targetForm; 
+            ChangeState(new HenshinState(this, targetForm));
+        }
+    }
+
+	// Fungsi ini bisa dipanggil oleh Script UI Radial Menu kamu nanti saat tombol R1 dilepas
+	public void RequestFormFromUI(int formIndex)
 	{
-		if (Input.IsActionJustPressed("henshin"))
+		if (_currentState is HenshinState) return;
+
+		BaseForm targetForm = formIndex switch
 		{
-			ChangeState(new HenshinState(this));
+			1 => HumanData,
+			2 => HeroData,
+			3 => HeroData2,
+			4 => HeroData3,
+			_ => null
+		};
+
+		if (targetForm != null && targetForm != CurrentForm)
+		{
+			ChangeState(new HenshinState(this, targetForm));
 		}
 	}
 
 	public void HandleWallMovement(double delta)
 	{
 		// Hanya Hero yang bisa Wall Jump/Slide
-		if (CurrentForm != HeroData) 
+		if (CurrentForm is not HeroForm)
 		{
 			_isWallSliding = false;
 			return;
@@ -239,7 +284,7 @@ public partial class Player : CharacterBody2D
 			PlayerVisuals.FlipH = wallDir < 0;
 			// Efek gesekan: Kecepatan jatuh dibatasi
 			_velocity.Y = Mathf.Min(_velocity.Y, CurrentForm.WallSlideSpeed);
-			
+
 			// Handle Wall Jump
 			if (Input.IsActionJustPressed("jump"))
 			{

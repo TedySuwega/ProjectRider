@@ -39,6 +39,6 @@ public partial class IdleState : PlayerState
 		_player.ApplyHorizontalLocomotion(delta);
 		_player.HandleSlide();
 		_player.HandleAttack();
-		_player.HandleHenshin();
+		_player.HandleFormSwitchInput();
 	}
 }

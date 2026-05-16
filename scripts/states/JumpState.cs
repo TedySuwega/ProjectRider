@@ -32,7 +32,7 @@ public partial class JumpState : PlayerState
 		_player.ApplyHorizontalLocomotion(delta);
 		_player.HandleSlide();
 		_player.HandleAttack();
-		_player.HandleHenshin();
+		_player.HandleFormSwitchInput();
 	}
 
 	public override void PhysicsPostMove(double delta)
