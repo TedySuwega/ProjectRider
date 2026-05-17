@@ -562,58 +562,6 @@ region = Rect2(1792, 0, 128, 128)
 atlas = ExtResource("4_d2wvv")
 region = Rect2(1664, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tpmi1"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(1536, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ehci"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(1408, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j7i68"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(1280, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6nj3f"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(1152, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k8oxv"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(1024, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4cgac"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(896, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r7b2j"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(768, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bjhuq"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(640, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jwvtp"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(512, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1w2jg"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(384, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c740o"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(256, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e2o4r"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(128, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tj70q"]
-atlas = ExtResource("4_d2wvv")
-region = Rect2(0, 0, 128, 128)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_wvc5d"]
 atlas = ExtResource("14_487ah")
 region = Rect2(0, 0, 128, 128)
@@ -1695,45 +1643,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ep0wi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tpmi1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7ehci")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j7i68")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6nj3f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k8oxv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4cgac")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r7b2j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bjhuq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jwvtp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1w2jg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c740o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e2o4r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tj70q")
 }],
 "loop": true,
 "name": &"henshin",
@@ -2336,5 +2245,5 @@ shape = SubResource("CapsuleShape2D_smehm")
 light_mask = 2
 position = Vector2(0, -2)
 sprite_frames = SubResource("SpriteFrames_gl8cc")
-animation = &"idle"
-frame_progress = 0.25410706
+animation = &"henshin"
+frame_progress = 0.61013
