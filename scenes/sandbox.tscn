@@ -174,8 +174,8 @@ sources/0 = SubResource("TileSetAtlasSource_4uo2b")
 position = Vector2(9, -17)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=675217245]
-position = Vector2(0, -41)
-zoom = Vector2(3, 3)
+position = Vector2(5, -71)
+zoom = Vector2(2.5, 2.5)
 position_smoothing_enabled = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1334612190]

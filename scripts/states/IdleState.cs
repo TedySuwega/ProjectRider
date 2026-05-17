@@ -14,6 +14,11 @@ public partial class IdleState : PlayerState
 
 	public override void Update(double delta)
 	{
+		if (_player.IsOnFloor())
+		{
+			_player.ResetJumpCount();
+		}
+
 		_player.ApplyGravity(delta);
 		_player.HandleWallMovement(delta);
 		_player.HandleCrawl();

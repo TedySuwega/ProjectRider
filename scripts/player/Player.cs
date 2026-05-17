@@ -23,6 +23,7 @@ public partial class Player : CharacterBody2D
 
 	private PlayerState _currentState;
 
+	public int JumpCount { get; set; } = 0; // Melacak jumlah lompatan aktif
 	private int _comboCount = 0; // Pukulan ke berapa (0, 1, 2)
 	private float _comboTimer = 0.0f; // Sisa waktu untuk lanjut combo
 	private const float COMBO_WINDOW = 0.8f; // Toleransi waktu antar pencetan Z
@@ -121,6 +122,24 @@ public partial class Player : CharacterBody2D
 			
 			_velocity.Y += gravity * (float)delta;
 		}
+	}
+
+	public void ResetJumpCount()
+	{
+		JumpCount = 0;
+	}
+
+	public void ExecuteDoubleJump()
+	{
+		// Berikan daya dorong vertikal baru (bisa disamakan atau dibuat lebih ringan dari lompatan pertama)
+		_velocity.Y = CurrentForm.JumpVelocity; 
+		JumpCount = 2;
+
+		// Efek Visual opsional: Mainkan kembali animasi jump dari frame 0 agar terlihat nge-snap
+		PlayAnimationSafely(CurrentForm.JumpAnim);
+		PlayerVisuals.Frame = 0;
+
+		GD.Print("Hero 2 Double Jump Activated: Kinetic Burst!");
 	}
 
 	public void HandleCrawl()
