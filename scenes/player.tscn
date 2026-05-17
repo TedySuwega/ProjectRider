@@ -2326,6 +2326,8 @@ HeroData = ExtResource("35_np4wq")
 HeroData2 = ExtResource("4_t4otl")
 HeroData3 = ExtResource("5_j2b1d")
 CurrentForm = ExtResource("34_kr8m2")
+RiderKickAnim = "slide_hero"
+RiderKickAngle = 35.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1479565281]
 shape = SubResource("CapsuleShape2D_smehm")

@@ -1,4 +1,5 @@
 using Godot;
+using ProjectRider.Forms.HeroForm;
 
 namespace ProjectRider.States;
 
@@ -59,6 +60,12 @@ public partial class JumpState : PlayerState
 		_player.HandleSlide();
 		_player.HandleAttack();
 		_player.HandleFormSwitchInput();
+
+		if (Input.IsActionJustPressed("ulti_kick") && _player.CurrentForm is HeroForm)
+		{
+			_player.ChangeState(new RiderKickState(_player));
+			return;
+		}
 	}
 
 	public override void PhysicsPostMove(double delta)

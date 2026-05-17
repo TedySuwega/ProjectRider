@@ -16,6 +16,16 @@ public partial class Player : CharacterBody2D
 	[Export] public BaseForm HeroData3; // TAMBAHKAN INI (Hero 3 - Hijau)
 	[Export] public BaseForm CurrentForm;
 
+	[ExportGroup("Rider Kick Settings")]
+	[Export] public string RiderKickAnim = "kick_hero"; // Siapkan nama animasinya di Godot
+	[Export] public float RiderKickSpeed = 600.0f;       // Kecepatan meluncur menukik
+	[Export] public float RiderKickAngle = 45.0f;        // Sudut kemiringan tendangan (dalam derajat)
+
+	// Helper untuk mengecek arah hadap player (kiri/kanan) untuk menentukan arah kick
+	public float GetFacingDirection()
+	{
+		return PlayerVisuals.FlipH ? -1.0f : 1.0f;
+	}
 	private Vector2 _velocity;
 	private float _dashSpeedMultiplier = 1.0f;
 	private float _coyoteTimer = 0.0f; 
