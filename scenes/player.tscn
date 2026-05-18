@@ -14,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://dysupi6uced0s" path="res://resources/forms/hero_data3.tres" id="5_j2b1d"]
 [ext_resource type="Texture2D" uid="uid://dffequo4yvuqj" path="res://assets/hero/male_hero-idle.png" id="5_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://cbmcok1aahqtl" path="res://assets/hero/male_hero-combo_2.png" id="6_4ni07"]
+[ext_resource type="Resource" uid="uid://ocdv88sbsfrv" path="res://resources/forms/hero_data4.tres" id="6_j2b1d"]
 [ext_resource type="Texture2D" uid="uid://b0bg54yo7mkug" path="res://assets/hero/male_hero-combo_2_end.png" id="7_l71n6"]
 [ext_resource type="Texture2D" uid="uid://c12x07k0ybqkb" path="res://assets/individual_sheets/male_hero_template-run.png" id="7_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://bmvouy6wiotg6" path="res://assets/individual_sheets/male_hero_template-walk.png" id="8_d2wvv"]
@@ -30,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://cxpbp3ik1fa1k" path="res://assets/hero/male_hero-walk.png" id="21_wqfne"]
 [ext_resource type="Texture2D" uid="uid://bsivion8b2qq1" path="res://assets/hero/male_hero-ledge_climb.png" id="23_md1ol"]
 [ext_resource type="Texture2D" uid="uid://p8yv3y4b21gn" path="res://assets/hero/male_hero-ledge_hang.png" id="24_bj30b"]
+[ext_resource type="Texture2D" uid="uid://c04i5wivplvi7" path="res://assets/kamen-idle.png" id="24_cs1tg"]
 [ext_resource type="Texture2D" uid="uid://bymyege1us1tw" path="res://assets/hero/male_hero-run_to_idle.png" id="27_jc3p3"]
 [ext_resource type="Texture2D" uid="uid://dgnjk2gqh6li5" path="res://assets/hero/male_hero-run_turn.png" id="28_hax0n"]
 [ext_resource type="Texture2D" uid="uid://k4ss2xpwrawb" path="res://assets/hero/male_hero-slide.png" id="29_md1ol"]
@@ -744,6 +746,46 @@ region = Rect2(1024, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kr3rc"]
 atlas = ExtResource("20_hax0n")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpmi1"]
+atlas = ExtResource("24_cs1tg")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ehci"]
+atlas = ExtResource("24_cs1tg")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7i68"]
+atlas = ExtResource("24_cs1tg")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nj3f"]
+atlas = ExtResource("24_cs1tg")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8oxv"]
+atlas = ExtResource("24_cs1tg")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cgac"]
+atlas = ExtResource("24_cs1tg")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7b2j"]
+atlas = ExtResource("24_cs1tg")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjhuq"]
+atlas = ExtResource("24_cs1tg")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwvtp"]
+atlas = ExtResource("24_cs1tg")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1w2jg"]
+atlas = ExtResource("24_cs1tg")
 region = Rect2(1152, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
@@ -1813,6 +1855,41 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_tpmi1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ehci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7i68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6nj3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8oxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cgac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7b2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjhuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwvtp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1w2jg")
+}],
+"loop": true,
+"name": &"idle_hero_form4",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_4r5pv")
 }, {
 "duration": 1.0,
@@ -2234,6 +2311,7 @@ HumanData = ExtResource("34_kr8m2")
 HeroData = ExtResource("35_np4wq")
 HeroData2 = ExtResource("4_t4otl")
 HeroData3 = ExtResource("5_j2b1d")
+HeroData4 = ExtResource("6_j2b1d")
 CurrentForm = ExtResource("34_kr8m2")
 RiderKickAnim = "slide_hero"
 RiderKickAngle = 35.0
@@ -2245,4 +2323,5 @@ shape = SubResource("CapsuleShape2D_smehm")
 light_mask = 2
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_gl8cc")
-animation = &"idle"
+animation = &"idle_hero_form4"
+frame_progress = 0.93594897

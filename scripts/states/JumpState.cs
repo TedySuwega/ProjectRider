@@ -49,7 +49,7 @@ public partial class JumpState : PlayerState
 		// --- TAMBAHKAN LOGIKA DETEKSI DOUBLE JUMP DI SINI ---
 		if (Input.IsActionJustPressed("jump"))
 		{
-			if (!_player.IsOnFloor() && _player.CurrentForm == _player.HeroData2 && _player.JumpCount == 1)
+			if (!_player.IsOnFloor() && (_player.CurrentForm == _player.HeroData2 || _player.CurrentForm == _player.HeroData4) && _player.JumpCount == 1)
 			{
 				_player.ExecuteDoubleJump();
 			}

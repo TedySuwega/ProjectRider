@@ -14,6 +14,7 @@ public partial class Player : CharacterBody2D
 	[Export] public BaseForm HeroData;
 	[Export] public BaseForm HeroData2; // TAMBAHKAN INI (Hero 2 - Biru)
 	[Export] public BaseForm HeroData3; // TAMBAHKAN INI (Hero 3 - Hijau)
+	[Export] public BaseForm HeroData4; // TAMBAHKAN INI (Hero 4 - Kamen Rider Black)
 	[Export] public BaseForm CurrentForm;
 
 	[ExportGroup("Rider Kick Settings")]
@@ -30,6 +31,8 @@ public partial class Player : CharacterBody2D
 	private float _dashSpeedMultiplier = 1.0f;
 	private float _coyoteTimer = 0.0f; 
 	private float _wallJumpInputLockTimer = 0.0f;
+	private float _ultimateFormTimer = 0.0f;
+    private const float ULTIMATE_DURATION = 5.0f; // Bisa kamu adjust ke 60.0f (1 menit) nanti
 
 	private PlayerState _currentState;
 
@@ -93,6 +96,7 @@ public partial class Player : CharacterBody2D
 		_velocity = Velocity;
 		TickCoyote(delta);
 		TickComboTimer(delta);
+		TickUltimateFormTimer(delta);
 		HandleFormSwitchInput();
 
 		_currentState?.Update(delta);
@@ -245,6 +249,24 @@ public partial class Player : CharacterBody2D
 		_comboTimer = COMBO_WINDOW; // Beri waktu pemain untuk lanjut pencet
 	}
 
+	private void TickUltimateFormTimer(double delta)
+    {
+        // Hanya kurangi timer jika saat ini sedang menggunakan HeroData4
+        if (CurrentForm == HeroData4)
+        {
+            if (_ultimateFormTimer > 0)
+            {
+                _ultimateFormTimer -= (float)delta;
+            }
+            else
+            {
+                // WAKTU HABIS: Paksa kembali ke HumanData menggunakan HenshinState
+                GD.Print("Ultimate Form Time Out! Unhenshin to Human Form.");
+                ChangeState(new HenshinState(this, HumanData));
+            }
+        }
+    }
+
 	// public void HandleHenshin()
 	// {
 	// 	if (Input.IsActionJustPressed("henshin"))
@@ -262,11 +284,17 @@ public partial class Player : CharacterBody2D
         if (Input.IsActionJustPressed("key_2")) targetForm = HeroData;  // Hero 1
         if (Input.IsActionJustPressed("key_3")) targetForm = HeroData2; // Hero 2
         if (Input.IsActionJustPressed("key_4")) targetForm = HeroData3; // Hero 3
+		if (Input.IsActionJustPressed("key_5")) targetForm = HeroData4; // Hero 4
 
         // Pastikan target form tidak null, tidak sama dengan form sekarang, 
         // dan tidak sedang dalam keadaan HenshinState
         if (targetForm != null && targetForm != CurrentForm && _currentState is not HenshinState)
         {
+			// JIKA BERUBAH KE HERO 4: Set ulang timernya ke 5 detik
+            if (targetForm == HeroData4)
+            {
+                _ultimateFormTimer = ULTIMATE_DURATION;
+            }
             // Kita simpan dulu target form-nya ke dalam variabel sementara (atau passing langsung ke State)
             _nextTargetForm = targetForm; 
             ChangeState(new HenshinState(this, targetForm));
@@ -284,11 +312,17 @@ public partial class Player : CharacterBody2D
 			2 => HeroData,
 			3 => HeroData2,
 			4 => HeroData3,
+			5 => HeroData4,
 			_ => null
 		};
 
 		if (targetForm != null && targetForm != CurrentForm)
 		{
+			// JIKA BERUBAH KE HERO 4 VIA UI: Set ulang timernya
+            if (targetForm == HeroData4)
+            {
+                _ultimateFormTimer = ULTIMATE_DURATION;
+            }
 			ChangeState(new HenshinState(this, targetForm));
 		}
 	}
@@ -315,7 +349,7 @@ public partial class Player : CharacterBody2D
 			_velocity.Y = Mathf.Min(_velocity.Y, CurrentForm.WallSlideSpeed);
 
 			// Handle Wall Jump
-			if (Input.IsActionJustPressed("jump"))
+			if (Input.IsActionJustPressed("jump") && (CurrentForm == HeroData2 || CurrentForm == HeroData4))
 			{
 				PerformWallJump(wallDir);
 			}
